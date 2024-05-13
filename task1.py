@@ -1,3 +1,6 @@
+import timeit
+import random
+
 def merge_sort(arr):
     if len(arr) <= 1:
         return arr
@@ -34,3 +37,28 @@ def insertion_sort(arr):
             j -= 1
         arr[j + 1] = key
     return arr
+
+def test_sorting_algorithms(arr):
+    # Вимірювання часу сортування -  merge_sort
+    merge_sort_time = timeit.timeit(stmt='merge_sort(arr)',
+                                    globals=globals(),
+                                    number=10)
+    
+    # Вимірювання часу сортування -  insertion_sort
+    insertion_sort_time = timeit.timeit(stmt='insertion_sort(arr)',
+                                        globals=globals(),
+                                        number=10)
+    
+    # Вимірювання часу сортування - Timsort
+    timsort_time = timeit.timeit(stmt='sorted(arr)',
+                                  globals=globals(),
+                                  number=10)
+    
+    print(f"Час merge_sort: {merge_sort_time}")
+    print(f"Час insertion_sort: {insertion_sort_time}")
+    print(f"Час вбудованого Timsort: {timsort_time}")
+
+# Випадковий масив для тестів
+arr = [random.randint(0, 1000) for _ in range(1000)]
+
+test_sorting_algorithms(arr)
